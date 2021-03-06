@@ -22,7 +22,8 @@ libreoffice
 sound editor (audacity)
 password manager (keepassxc) 
 obs
-htop"
+htop
+terminal ($TERMINAL)"
 
 chosen=$(echo -e "$choices" | dmenu -i -fn "DejaVu Sans Mono:size=12" -nb "$color0" -nf "$color15" -sb "$color2" -sf "$color15")
 
@@ -45,6 +46,7 @@ case $chosen in
     libreoffice) libreoffice ;;
     "sound editor (audacity)") audacity ;;
     "password manager (keepassxc)") keepassxc ;;
-    obs) obs;;
+    obs) obs ;;
     htop) $TERMINAL -e htop ;;
+    "terminal ($TERMINAL)") $TERMINAL ;;
 esac

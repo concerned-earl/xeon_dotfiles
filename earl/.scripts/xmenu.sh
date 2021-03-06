@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Suspend						i3lock -i $LOCK_SCREEN -p default -f -n ; systemctl suspend
+
 cat <<EOF | xmenu | sh &
 Launch
 	Web Browser				$BROWSER
@@ -17,7 +19,7 @@ Audio
 Night Light					source ~/.scripts/env.sh && ~/.scripts/redshift.sh toggle 
 Display Settings			arandr
 
-Suspend						systemctl suspend && i3lock -i $LOCK_SCREEN -p default -f -n
+Suspend 					systemctl suspend	
 Kill WM						killall $WINDOW_MANAGER
 Poweroff					poweroff
 Reboot						reboot
