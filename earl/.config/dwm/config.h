@@ -102,7 +102,7 @@ static Key keys[] = {
     TAGKEYS(                        XK_7,                      6)
     TAGKEYS(                        XK_8,                      7)
     TAGKEYS(                        XK_9,                      8)
-    { MODKEY,                       XK_Escape,  quit,          {0} },
+    { MODKEY|ShiftMask,             XK_Escape,  quit,          {0} },
     /* Audio/music */
     { 0,            XF86XK_AudioLowerVolume,    spawn,      SHCMD("amixer -q set Master 1%-; kill -44 $(pidof dwmblocks)") },
     { 0,            XF86XK_AudioRaiseVolume,    spawn,      SHCMD("amixer -q set Master 1%+; kill -44 $(pidof dwmblocks)") },
