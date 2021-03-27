@@ -23,7 +23,8 @@ sound editor (audacity)
 password manager (keepassxc) 
 obs
 htop
-terminal ($TERMINAL)"
+terminal ($TERMINAL)
+code"
 
 chosen=$(echo -e "$choices" | dmenu -i -fn "DejaVu Sans Mono:size=12" -nb "$color0" -nf "$color15" -sb "$color2" -sf "$color15")
 
@@ -49,4 +50,5 @@ case $chosen in
     obs) obs ;;
     htop) $TERMINAL -e htop ;;
     "terminal ($TERMINAL)") $TERMINAL ;;
+    code) vscodium ;;
 esac

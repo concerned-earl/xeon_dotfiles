@@ -1,0 +1,13 @@
+# General options
+set statusbar-h-padding     0
+set statusbar-v-padding     0
+set page-padding            1
+# set selection-clipboard     clipboard
+
+# Recolor colors (Ctrl-R)
+set recolor-lightcolor      "#fff5d1" # Background
+set recolor-darkcolor       "#000000" # Foreground
+
+# Startup options
+set recolor                 true
+set adjust-open             best-fit

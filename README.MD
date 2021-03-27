@@ -1,7 +1,6 @@
 # Desktop dotfiles
 
-credit to torrinfail and luke smith for some of the configurations
-
+The fundamentals
 - dwm (window manager)
 - st (terminal)
 - dwmblocks (status bar)
@@ -18,7 +17,7 @@ credit to torrinfail and luke smith for some of the configurations
 <summary><strong>Standard packages</strong></summary>
   
 ```bash
-xorg xorg-xinit xorg-xwininfo nvidia intel-ucode wpa_supplicant git tlp powertop htop maim pulseaudio pulseaudio-alsa alsa-firmware alsa-plugins alsa-utils pavucontrol networkmanager python-pywal feh mpc ncmpcpp ranger pcmanfm gvfs mpv dmenu vim firefox qutebrowser zathura qbittorrent udiskie youtube-dl lxappearance obs ffmpeg imagemagick arandr picom man tldr dunst xclip xdotool unzip unrar p7zip keepassxc i3lock terminus-font ttf-dejavu libreoffice
+xorg xorg-xinit xorg-xwininfo nvidia intel-ucode wpa_supplicant git tlp powertop htop maim pulseaudio pulseaudio-alsa alsa-firmware alsa-plugins alsa-utils pavucontrol networkmanager python-pywal feh mpc ncmpcpp ranger pcmanfm gvfs mpv dmenu vim firefox qutebrowser zathura qbittorrent udiskie youtube-dl lxappearance obs ffmpeg ffmpegthumbnailer imagemagick arandr picom man tldr dunst xclip xdotool unzip unrar p7zip keepassxc i3lock terminus-font ttf-dejavu libreoffice fzf adobe-source-han-sans-jp-fonts cherrytree ufw
 ```
 </details>
 
@@ -27,15 +26,6 @@ xorg xorg-xinit xorg-xwininfo nvidia intel-ucode wpa_supplicant git tlp powertop
   
 ```bash
 xmenu tlp-rdw
-
-```
-</details>
-
-<details>
-<summary><strong>openrc specific packages</strong></summary>
-  
-```bash
-tlp-openrc networkmanager-openrc
 
 ```
 </details>

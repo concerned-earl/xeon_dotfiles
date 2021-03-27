@@ -53,9 +53,10 @@ ex ()
 }
 
 # alias
-alias update="yay -Syu --noconfirm && notify-send 'Update finished'" # Updates standard and AUR packages
-alias v="vim"
-alias sv="sudo vim"
+alias update="paru -Syu --noconfirm && notify-send 'Update finished'" # Updates standard and AUR packages
+alias v="$EDITOR"
+alias z="$READER"
+alias sv="sudo $EDITOR"
 alias ka="killall"
 alias mkd="mkdir -pv" # -p make parent directories as needed, -v verbose
 alias ls="ls -hN --color=auto --group-directories-first"
@@ -65,4 +66,4 @@ alias grep="grep --color=auto"
 alias rm="rm -v"
 alias sp="sudo pacman"
 alias processes="ps aux"
-alias mu="~/.scripts/mpd.sh && ncmpcpp" # Starts mpd (if needed) and ncmpcpp
+alias mu="~/.scripts/mpd.sh && ncmpcpp" # Start mpd (if needed) and ncmpcpp
