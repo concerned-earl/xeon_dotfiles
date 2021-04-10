@@ -1,18 +1,15 @@
 #!/bin/sh
 
-# Import the colors
-. "$HOME/.cache/wal/colors.sh"
-
 choices="browser ($BROWSER)
 browser (qutebrowser)
 file manager ($FILE_MANAGER)
 qbittorrent
-discord
-night light (redshift)
 music player ($MUSIC_PLAYER)
+videos
+pictures
 steam
-volume control (pavucontrol)
 notes (cherrytree)
+volume control (pavucontrol)
 virtualbox
 screen settings (arandr)
 customizing (lxappearance)
@@ -24,21 +21,25 @@ password manager (keepassxc)
 obs
 htop
 terminal ($TERMINAL)
-code"
+night light (redshift)
+code
+discord
+"
 
-chosen=$(echo -e "$choices" | dmenu -i -fn "DejaVu Sans Mono:size=12" -nb "$color0" -nf "$color15" -sb "$color2" -sf "$color15")
+# chosen=$(echo -e "$choices" | dmenu -i -fn "Terminus:size=15" -nb "#000000" -nf "#ffffff" -sb "#ffffff" -sf "#000000")
+chosen=$(echo -e "$choices" | dmenu -i -fn "DejaVu Sans Mono:size=13" -nb "#000000" -nf "#ffffff" -sb "#ffffff" -sf "#000000")
 
 case $chosen in
     "browser ($BROWSER)") $BROWSER ;;
     "browser (qutebrowser)") qutebrowser ;;
     "file manager ($FILE_MANAGER)") $FILE_MANAGER ;;
     qbittorrent) qbittorrent ;;
-    discord) discord ;;
-    "night light (redshift)") redshift ;;
     "music player ($MUSIC_PLAYER)") $HOME/.scripts/mpd.sh && $TERMINAL -e $MUSIC_PLAYER ;;
+    pictures) $FILE_MANAGER $HOME/Pictures ;;
+    videos) $FILE_MANAGER $HOME/Videos ;;
     steam) steam ;;
-    "volume control (pavucontrol)") pavucontrol ;;
     "notes (cherrytree)") cherrytree ;;
+    "volume control (pavucontrol)") pavucontrol ;;
     virtualbox) virtualbox ;;
     "screen settings (arandr)") arandr ;;
     "customizing (lxappearance)") lxappearance ;;
@@ -50,5 +51,7 @@ case $chosen in
     obs) obs ;;
     htop) $TERMINAL -e htop ;;
     "terminal ($TERMINAL)") $TERMINAL ;;
+    "night light (redshift)") redshift ;;
     code) vscodium ;;
+    discord) discord ;;
 esac

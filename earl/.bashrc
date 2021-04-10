@@ -54,6 +54,7 @@ ex ()
 
 # alias
 alias update="paru -Syu --noconfirm && notify-send 'Update finished'" # Updates standard and AUR packages
+alias r="ranger"
 alias v="$EDITOR"
 alias z="$READER"
 alias sv="sudo $EDITOR"
