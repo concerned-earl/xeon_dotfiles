@@ -1,16 +1,6 @@
 ! xrdb -merge .Xresources
 
-! dwm colors
-dwm.selbordercolor:     #adadad
-dwm.normbordercolor:    #404040
-dwm.normbgcolor:        #000000
-dwm.normfgcolor:        #9e9e9e
-dwm.selbgcolor:         #000000
-dwm.selfgcolor:         #ffffff
-
-*.cursorColor:  #adadad
-
-! Neon/cyberpunk theme
+! Neon theme
 !*.foreground:   #ffffff
 !*.background:   #000000
 !*.color0:       #211a22
@@ -89,3 +79,5 @@ dwm.selfgcolor:         #ffffff
 *.color14:      #6ec2a8
 *.color7:       #8d8d8d
 *.color15:      #dad3d3
+
+*.cursorColor:  #adadad

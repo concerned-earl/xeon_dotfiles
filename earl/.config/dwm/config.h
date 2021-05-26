@@ -8,16 +8,16 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Terminus:size=11" };
-static char normbgcolor[]           = "#222222";
-static char normbordercolor[]       = "#444444";
-static char normfgcolor[]           = "#bbbbbb";
-static char selfgcolor[]            = "#eeeeee";
-static char selbordercolor[]        = "#005577";
-static char selbgcolor[]            = "#005577";
-static char *colors[][3] = {
-       /*               fg           bg           border   */
-       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+static const char col_bg[]          = "#000000";
+static const char col_fg[]          = "#ffffff";
+static const char col_gray[]        = "#adadad";
+static const char col_dgray[]       = "#636363";
+static const char col_dark[]        = "#232323";
+static const char *colors[][3]      = {
+    /*               fg         bg          border   */
+    [SchemeNorm] = { col_gray,  col_bg,     col_dgray },
+    [SchemeSel]  = { col_fg,    col_bg,     col_fg },
+    [SchemeHid]  = { col_bg,    col_gray,   col_gray },
  };
 
 /* tagging */
@@ -28,8 +28,10 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class            instance    title       tags mask     isfloating   monitor */
+	{ "qBittorrent",    NULL,       NULL,       1 << 8,       0,           1 },
+	{ "obs",            NULL,       NULL,       1 << 8,       0,           1 },
+	{ "discord",        NULL,       NULL,       1 << 7,       0,           1 },
 }; 
 
 /* layout(s) */
@@ -42,8 +44,6 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
-	{ "|M|",      centeredmaster },
-	// { ">M>",      centeredfloatingmaster },
 };
 
 /* key definitions */
@@ -79,7 +79,6 @@ static Key keys[] = {
     { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, // tiling
     { MODKEY,                       XK_y,      setlayout,      {.v = &layouts[1]} }, // floating
     { MODKEY,                       XK_r,      setlayout,      {.v = &layouts[2]} }, // monocle
-    { MODKEY,                       XK_e,      setlayout,      {.v = &layouts[3]} }, // center
     { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
     { MODKEY,                       XK_f,      togglefullscr,  {0} },
     { MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -92,7 +91,6 @@ static Key keys[] = {
     // { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
     // { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
     // { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-    { MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
     TAGKEYS(                        XK_1,                      0)
     TAGKEYS(                        XK_2,                      1)
     TAGKEYS(                        XK_3,                      2)
@@ -107,15 +105,18 @@ static Key keys[] = {
     { 0,            XF86XK_AudioLowerVolume,    spawn,      SHCMD("amixer -q set Master 1%-; kill -44 $(pidof dwmblocks)") },
     { 0,            XF86XK_AudioRaiseVolume,    spawn,      SHCMD("amixer -q set Master 1%+; kill -44 $(pidof dwmblocks)") },
     { 0,            XF86XK_AudioMute,           spawn,      SHCMD("amixer -q set Master toggle") },
+    { 0,            XF86XK_AudioMicMute,        spawn,      SHCMD("amixer -q set Capture toggle") },
     { 0,            XF86XK_AudioPlay,           spawn,      SHCMD("mpc toggle && notify-send \\\"Music\\\" \\\"$(mpc status | grep \\\"#\\\")\\\"") },
     { 0,            XF86XK_AudioStop,           spawn,      SHCMD("mpc stop ; killall mpd && notify-send \\\"Music\\\" \\\"mpd stopped\\\"") },
     { 0,            XF86XK_AudioPrev,           spawn,      SHCMD("mpc prev") },
     { 0,            XF86XK_AudioNext,           spawn,      SHCMD("mpc next") },
     /* Screenshot */
-    { 0,                            XK_Print,   spawn,      SHCMD("$HOME/.scripts/clipboard_screenshot.sh") },  // Saves selected area screenshot into clipboard
-    { ShiftMask,                    XK_Print,   spawn,      SHCMD("$HOME/.scripts/area_screenshot.sh") },       // Takes screenshot of selected area
-    { MODKEY|ShiftMask,             XK_Print,   spawn,      SHCMD("$HOME/.scripts/screenshot.sh") },            // Takes fullscreen picture
-
+    { 0,                    XK_Print,           spawn,      SHCMD("$HOME/.scripts/clipboard_screenshot.sh") },  // Saves selected area screenshot into clipboard
+    { ShiftMask,            XK_Print,           spawn,      SHCMD("$HOME/.scripts/area_screenshot.sh") },       // Takes screenshot of selected area
+    { MODKEY|ShiftMask,     XK_Print,           spawn,      SHCMD("$HOME/.scripts/screenshot.sh") },            // Takes fullscreen picture
+    /* Brightness */
+    { 0,            XF86XK_MonBrightnessUp,     spawn,      SHCMD("xbacklight -inc 5") },
+    { 0,            XF86XK_MonBrightnessDown,   spawn,      SHCMD("xbacklight -dec 5") },
 };
 
 /* button definitions */
@@ -124,6 +125,7 @@ static Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+	{ ClkWinTitle,          0,              Button1,        togglewin,      {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	// { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },

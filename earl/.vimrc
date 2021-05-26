@@ -57,7 +57,7 @@ set ignorecase
 set title
 
 set history=1000
-set shell:bash
+set shell:zsh
 
 nnoremap <F1> <nop>
 map <S-k> <Nop>

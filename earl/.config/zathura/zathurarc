@@ -1,13 +1,19 @@
-# General options
+# General
 set statusbar-h-padding     0
 set statusbar-v-padding     0
 set page-padding            1
 # set selection-clipboard     clipboard
 
+map u scroll half-up
+map d scroll half-down
+map D toggle_page_mode
+map K zoom in
+map J zoom out
+
 # Recolor colors (Ctrl-R)
 set recolor-lightcolor      "#fff5d1" # Background
 set recolor-darkcolor       "#000000" # Foreground
 
-# Startup options
+# Startup
 set recolor                 true
 set adjust-open             best-fit

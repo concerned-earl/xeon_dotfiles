@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 case "$(pidof mpd | wc -w)" in
 

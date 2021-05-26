@@ -3,23 +3,23 @@ title = Dunst
 class = Dunst
 monitor = 0
 follow = keyboard
-geometry = "350x6-50+50"
+geometry = "0x4-0+14"
 indicate_hidden = yes
 shrink = yes
 
 transparency = 0
-separator_height = 2
-padding = 8
-horizontal_padding = 11
-frame_width = 6
-frame_color = "#f9f9f9"
-separator_color = "#f5f5f5"
+separator_height = 1
+padding = 2
+horizontal_padding = 2
+frame_width = 1
+frame_color = "#9e9e9e"
+separator_color = frame
 
-font = IBM Plex Mono 10
+font = Deja Vu Sans Mono 8
 
 line_height = 0
 markup = full
-format = "<span size='x-large' font_desc='IBM Plex Mono 9' weight='bold' foreground='#fa74b2'>%s</span>\n%b"
+format = "<span size='x-large' font_desc='Terminus 7' weight='bold' foreground='#ffffff'>%s</span>\n%b"
 alignment = center
 
 idle_threshold = 120
@@ -34,10 +34,6 @@ sticky_history = no
 history_length = 5
 always_run_script = true
 corner_radius = 0
-icon_position = left
-max_icon_size = 80
-
-icon_path = /usr/share/icons/Papirus-Custom/48x48/actions/:/usr/share/icons/Papirus-Custom/48x48/apps/:/usr/share/icons/Papirus-Custom/48x48/devices/:/usr/share/icons/Papirus-Custom/48x48/emblems/:/usr/share/icons/Papirus-Custom/48x48/emotes/:/usr/share/icons/Papirus-Custom/48x48/mimetypes/:/usr/share/icons/Papirus-Custom/48x48/places/:/usr/share/icons/Papirus-Custom/48x48/status/
 
 browser = firefox
 
@@ -52,16 +48,16 @@ history = ctrl+Escape
 # context = ctrl+shift+period
 
 [urgency_low]
-timeout = 700ms
-background = "#f9f9f9"
-foreground = "#373e4d"
+timeout = 2500ms
+background = "#000000"
+foreground = "#ffffff"
 
 [urgency_normal]
-timeout = 2500ms
-background = "#f9f9f9"
-foreground = "#373e4d"
+timeout = 4000ms
+background = "#000000"
+foreground = "#ffffff"
 
 [urgency_critical]
 timeout = 0
-background = "#f9f9f9"
-foreground = "#373e4d"
+background = "#000000"
+foreground = "#ffffff"

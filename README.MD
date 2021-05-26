@@ -17,7 +17,7 @@ The fundamentals
 <summary><strong>Standard packages</strong></summary>
   
 ```bash
-xorg xorg-xinit xorg-xwininfo nvidia intel-ucode wpa_supplicant git tlp powertop htop maim pulseaudio pulseaudio-alsa alsa-firmware alsa-plugins alsa-utils pavucontrol networkmanager feh mpc ncmpcpp ranger thunar tumbler gvfs gvfs-mtp thunar-volman thunar-media-tags-plugin mpv dmenu vim firefox qutebrowser zathura qbittorrent youtube-dl lxappearance obs ffmpeg ffmpegthumbnailer imagemagick arandr picom man tldr dunst xclip xdotool unzip unrar p7zip keepassxc i3lock terminus-font ttf-dejavu libreoffice fzf adobe-source-han-sans-jp-fonts cherrytree ufw
+xorg xorg-xinit xorg-xwininfo nvidia intel-ucode wpa_supplicant git tlp powertop htop maim pulseaudio pulseaudio-alsa alsa-firmware alsa-plugins alsa-utils pavucontrol networkmanager feh mpc ncmpcpp ranger thunar tumbler gvfs gvfs-mtp thunar-volman thunar-media-tags-plugin mpv dmenu vim firefox qutebrowser zathura zathura-pdf-mupdf qbittorrent youtube-dl lxappearance obs ffmpeg ffmpegthumbnailer imagemagick arandr picom man tldr dunst xclip xdotool unzip unrar p7zip keepassxc i3lock terminus-font ttf-dejavu libreoffice fzf adobe-source-han-sans-jp-fonts cherrytree ufw zsh zsh-syntax-highlighting zsh-autosuggestions
 ```
 </details>
 
