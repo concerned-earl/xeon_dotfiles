@@ -1,0 +1,16 @@
+# Template file
+#https://www.youtube.com/feeds/videos.xml?channel_id=
+#https://www.youtube.com/feeds/videos.xml?user=   
+
+META
+"query:TECH:tags # \"tech\"" meta
+"query:ETC:tags # \"etc\"" meta
+
+UPDATES
+https://www.archlinux.org/feeds/news/ info tech
+
+TECH
+# links
+
+ETC
+# links

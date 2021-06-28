@@ -5,7 +5,6 @@ Launch
 	Terminal				$TERMINAL
 	Web Browser				$BROWSER
 	Music Player			$HOME/.scripts/mpd.sh && $TERMINAL -e $MUSIC_PLAYER
-	Video Player			$VIDEO_PLAYER
 	File Manager			$FILE_MANAGER
 Screenshot
 	Clipboard Copy			$HOME/.scripts/clipboard_screenshot.sh

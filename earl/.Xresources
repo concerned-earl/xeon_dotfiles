@@ -1,8 +1,9 @@
 ! xrdb -merge .Xresources
 
-! Neon theme
+! Pink/blue
 !*.foreground:   #ffffff
 !*.background:   #000000
+!*.cursorColor:  #adadad
 !*.color0:       #211a22
 !*.color8:       #61596d
 !*.color1:       #9a6172
@@ -20,64 +21,44 @@
 !*.color7:       #d961cd
 !*.color15:      #a8c0d1
 
-! Book background (unfinished)
-!*.foreground:   #000000
-!*.background:   #fff5d1
-!*.color0:       #002b36
-!*.color8:       #657b83
-!*.color1:       #dc322f
-!*.color9:       #dc322f
-!*.color2:       #859900
-!*.color10:      #859900
-!*.color3:       #b58900
-!*.color11:      #b58900
-!*.color4:       #268bd2
-!*.color12:      #268bd2
-!*.color5:       #6c71c4
-!*.color13:      #6c71c4
-!*.color6:       #5a6968
-!*.color14:      #5a6968
-!*.color7:       #93a1a1
-!*.color15:      #93a1a1
-
-! Ivory Light
-!*.foreground:   #000000
-!*.background:   #fff5d1
-!*.color0:       #c5c1b4
-!*.color8:       #a1a6b2
-!*.color1:       #e75c58
-!*.color9:       #b22b31
-!*.color2:       #00a250
-!*.color10:      #007427
-!*.color3:       #a08a00
-!*.color11:      #715f00
-!*.color4:       #208ffb
-!*.color12:      #0065ca
-!*.color5:       #d160c4
-!*.color13:      #a03196
-!*.color6:       #00a4c1
-!*.color14:      #007693
-!*.color7:       #3e424d
-!*.color15:      #282c36
-
-! astromouse
-*.foreground:   #ffffff
+! Yellow/orange
+*.foreground:   #d3d3d3
 *.background:   #000000
-*.color0:       #1c1c1c
-*.color8:       #3d3a3a
-*.color1:       #d770af
-*.color9:       #d28abf
-*.color2:       #9acc79
-*.color10:      #8fb676
-*.color3:       #d0d26b
-*.color11:      #c8bc45
-*.color4:       #77b6c5
-*.color12:      #8fa7b9
-*.color5:       #a488d9
-*.color13:      #bd89de
-*.color6:       #7fcab3
-*.color14:      #6ec2a8
-*.color7:       #8d8d8d
-*.color15:      #dad3d3
+*.cursorColor:  #ebc793
+*.color0:       #382c2f
+*.color8:       #ac9377
+*.color1:       #48393a
+*.color9:       #baa17e
+*.color2:       #65534d
+*.color10:      #bca282
+*.color3:       #79665a
+*.color11:      #c1a67e
+*.color4:       #836e5e
+*.color12:      #cfb48e
+*.color5:       #8e7766
+*.color13:      #d1baa3
+*.color6:       #917781
+*.color14:      #dfc39b
+*.color7:       #9a846d
+*.color15:      #eed8c4
 
-*.cursorColor:  #adadad
+! WIP
+!*.foreground:   #000000
+!*.background:   #f4f1e4
+!*.cursorColor:  #000000
+!*.color0:       #a75648
+!*.color8:       #a75648
+!*.color1:       #416e83
+!*.color9:       #416e83
+!*.color2:       #91967a
+!*.color10:      #91967a
+!*.color3:       #8b6862
+!*.color11:      #8b6862
+!*.color4:       #3f8183
+!*.color12:      #3f8183
+!*.color5:       #5b5550
+!*.color13:      #5b5550
+!*.color6:       #75752d
+!*.color14:      #75752d
+!*.color7:       #4c585a
+!*.color15:      #4c585a

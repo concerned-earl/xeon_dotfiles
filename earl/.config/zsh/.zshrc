@@ -1,3 +1,4 @@
+# General
 HISTFILE=~/.config/zsh/.histfile
 HISTSIZE=500
 SAVEHIST=500
@@ -8,24 +9,38 @@ zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
 autoload -Uz compinit 
 compinit
 _comp_options+=(globdots)       # Include hidden files.
+
+# Light theme prompt (darker colors)
+#PS1='%F{238}$ %~%F{235} '
+#RPS1='%F{235}%T'
+
+# Dark theme prompt (lighter colors)
 PS1='%F{251}$ %~%F{255} '
 RPS1='%F{238}%T'
 
 # Alias
-#alias update="paru -Syu --noconfirm && notify-send 'Update finished'" # Updates standard and AUR packages
+alias cp="cp -iv"
+alias mv="mv -iv"
+alias bc="bc -ql" # calculator
 alias r="ranger"
-alias z="$READER"
+alias rm="rm -v"
+alias ka="killall"
 alias v="$EDITOR"
 alias sv="sudo $EDITOR"
-alias ka="killall"
-alias mkd="mkdir -pv" # -p make parent directories as needed, -v verbose
-alias ls="ls -hN --color=auto --group-directories-first"
-alias grep="grep --color=auto"
-alias rm="rm -v"
 alias sp="sudo pacman"
+alias grep="grep --color=auto"
 alias processes="ps aux"
-alias mu="~/.scripts/mpd.sh && ncmpcpp" # Start mpd (if needed) and ncmpcpp
 alias {wp,bg}="feh --bg-fill"
+alias yt="youtube-dl --add-metadata -i"
+alias yta="yt -x -f bestaudio/best"
+alias rss="newsboat"
+alias aur="paru"
+alias mkd="mkdir -pv" # -p make parent directories as needed
+alias ls="ls -hN --color=auto --group-directories-first"
+
+# Devour/swallow windows
+alias mpv="devour mpv"
+alias z="devour $READER"
 
 # ARCHIVE EXTRACTION
 # usage: ex <file>

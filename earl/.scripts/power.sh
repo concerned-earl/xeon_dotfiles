@@ -1,16 +1,15 @@
 #!/bin/sh
 
-choices="poweroff
-suspend
+choices="suspend
+poweroff
 kill wm
-reboot
-"
+reboot"
 
 chosen=$(echo -e "$choices" | dmenu -i -fn "DejaVu Sans Mono:size=13" -nb "#000000" -nf "#ffffff" -sb "#ffffff" -sf "#000000")
 
 case $chosen in
-    poweroff) poweroff ;;
     suspend) systemctl suspend ;;
+    poweroff) poweroff ;;
     "kill wm") killall $WINDOW_MANAGER ;;
-    reboot) reboot ::
+    reboot) reboot ;;
 esac

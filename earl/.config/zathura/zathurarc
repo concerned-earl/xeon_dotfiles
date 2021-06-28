@@ -11,8 +11,9 @@ map K zoom in
 map J zoom out
 
 # Recolor colors (Ctrl-R)
-set recolor-lightcolor      "#fff5d1" # Background
+set recolor-lightcolor      "#d4cfcc" # Background
 set recolor-darkcolor       "#000000" # Foreground
+# set recolor-lightcolor      "#fff5d1" # Background
 
 # Startup
 set recolor                 true
