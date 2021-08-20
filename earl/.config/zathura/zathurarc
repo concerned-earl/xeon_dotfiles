@@ -10,10 +10,14 @@ map D toggle_page_mode
 map K zoom in
 map J zoom out
 
-# Recolor colors (Ctrl-R)
-set recolor-lightcolor      "#d4cfcc" # Background
-set recolor-darkcolor       "#000000" # Foreground
-# set recolor-lightcolor      "#fff5d1" # Background
+# Colors (Ctrl-R)
+set recolor-lightcolor      "#262626"
+set recolor-darkcolor       "#f0f0f0"
+set default-bg              "#1c1c1c"
+set default-fg              "#dfdfaf"
+
+# set recolor-darkcolor       "#000000"
+# set recolor-lightcolor      "#fff5d1"
 
 # Startup
 set recolor                 true

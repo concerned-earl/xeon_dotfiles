@@ -21,24 +21,25 @@ RPS1='%F{238}%T'
 # Alias
 alias cp="cp -iv"
 alias mv="mv -iv"
-alias bc="bc -ql" # calculator
-alias r="ranger"
+alias bc="bc -ql"               # Calculator
+alias fm="ranger"
 alias rm="rm -v"
 alias ka="killall"
 alias v="$EDITOR"
-alias sv="sudo $EDITOR"
+alias sv="sudoedit"
 alias sp="sudo pacman"
 alias grep="grep --color=auto"
 alias processes="ps aux"
-alias {wp,bg}="feh --bg-fill"
-alias yt="youtube-dl --add-metadata -i"
-alias yta="yt -x -f bestaudio/best"
+alias wp="feh --bg-fill"
+alias yt="youtube-dl -i -o '%(title)s.%(ext)s'"
+alias yta="yt -x -f bestaudio/best --audio-quality 0"
 alias rss="newsboat"
 alias aur="paru"
-alias mkd="mkdir -pv" # -p make parent directories as needed
-alias ls="ls -hN --color=auto --group-directories-first"
+alias mkd="mkdir -pv"           # -p make parent directories as needed
+alias ls="exa --group-directories-first" # Use exa instead of ls
 
 # Devour/swallow windows
+alias feh="devour feh"
 alias mpv="devour mpv"
 alias z="devour $READER"
 
@@ -48,6 +49,7 @@ ex ()
 {
   if [ -f $1 ] ; then
     case $1 in
+      *.tar.zst)   unzstd $1    ;;      
       *.tar.bz2)   tar xjf $1   ;;
       *.tar.gz)    tar xzf $1   ;;
       *.bz2)       bunzip2 $1   ;;
@@ -61,7 +63,6 @@ ex ()
       *.7z)        7z x $1      ;;
       *.deb)       ar x $1      ;;
       *.tar.xz)    tar xf $1    ;;
-      *.tar.zst)   unzstd $1    ;;      
       *)           echo "'$1' cannot be extracted via ex()" ;;
     esac
   else
