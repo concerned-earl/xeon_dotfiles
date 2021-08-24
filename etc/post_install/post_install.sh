@@ -1,3 +1,5 @@
+#!/bin/sh
+
 to_install() {
   echo "install standard packages? [y/n]"
   read to_std
