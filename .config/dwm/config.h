@@ -37,7 +37,7 @@ static const char *colors[][3]      = {
 static const char col_bg[]          = "#262626";
 static const char col_fg[]          = "#ffffff";
 static const char col_1[]           = "#4c4c4c";
-static const char col_2[]           = "#d5d5d5";
+static const char col_2[]           = "#b8bbc2";
 static const char *colors[][3]      = {
     //               fg         bg          border
     [SchemeNorm] = { col_2,     col_bg,     col_1 },
@@ -92,7 +92,8 @@ static const Layout layouts[] = {
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 	{ "TTT",      bstack },
-	{ "===",      bstackhoriz },
+	// { "===",      bstackhoriz },
+	{ "[D]",      deck },
 };
 
 /* key definitions */
@@ -123,11 +124,12 @@ static Key keys[] = {
     { MODKEY,               XK_l,      setmfact,       {.f = +0.02} },
     { MODKEY,               XK_Tab,    view,           {0} },
     { MODKEY,               XK_q,      killclient,     {0} },
-    { MODKEY,               XK_s,      setlayout,      {.v = &layouts[0]} }, // tiling
-    { MODKEY,               XK_e,      setlayout,      {.v = &layouts[1]} }, // floating
-    { MODKEY,               XK_a,      setlayout,      {.v = &layouts[2]} }, // monocle
-    { MODKEY,               XK_w,      setlayout,      {.v = &layouts[3]} }, // bottom stack
-    { MODKEY,               XK_r,      setlayout,      {.v = &layouts[4]} }, // bottom stack horizontal
+    { MODKEY,               XK_a,      setlayout,      {.v = &layouts[0]} },
+    { MODKEY,               XK_r,      setlayout,      {.v = &layouts[1]} },
+    { MODKEY,               XK_s,      setlayout,      {.v = &layouts[2]} },
+    { MODKEY,               XK_e,      setlayout,      {.v = &layouts[3]} },
+    // { MODKEY,               XK_r,      setlayout,      {.v = &layouts[4]} },
+    { MODKEY,               XK_w,      setlayout,      {.v = &layouts[4]} },
     { MODKEY|ShiftMask,     XK_space,  togglefloating, {0} },
     { MODKEY,               XK_f,      togglefullscr,  {0} },
     { MODKEY,               XK_0,      view,           {.ui = ~0 } },

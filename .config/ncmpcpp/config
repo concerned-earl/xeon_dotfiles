@@ -1,5 +1,5 @@
 # MPD Settings .. 
-mpd_music_dir = "/home/earl/Music"
+mpd_music_dir = "~/Music"
 
 # Display ..
 

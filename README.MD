@@ -1,27 +1,38 @@
-# Desktop dotfiles
+# dotfiles
 
-- dwm (window manager):
-    - actualfullscreen
-    - alwayscenter
-    - attachbottom
-    - awesomebar
-    - bottomstack
-    - fixborders
-    - noborderfloatingfix
-    - pertag
-    - resizecorners
-    - scratchpads
-    - swallowing is implemented with xdo, devour and aliases.
-- st (terminal)
-- dwmblocks (status bar)
-- mpc/ncmpcpp (music)
-- mpv (video)
-- thunar, ranger (file manager)
-- neovim (text editor)
-- firefox (browser)
-- zathura (document reader)
-- qbittorrent (torrent client)
-- paru (aur helper)
+| program                               | name                                                                              |
+| :---                                  | :---                                                                              |
+| distro                                | arch
+| window manager                        | dwm
+| status bar                            | dwmblocks
+| launcher                              | dmenu
+| web browser                           | firefox
+| text editor                           | nvim
+| font                                  | dejavu sans mono
+| shell                                 | zsh
+| terminal                              | st
+| document reader                       | zathura
+| image viewer                          | feh
+| video player                          | mpv
+| file manager                          | thunar
+| colorscheme                           | mountain
+| torrent client                        | qbittorrent
+| music                                 | mpd/ncmpcpp
+| aur helper                            | paru
+
+#### dwm patches:
+- actualfullscreen
+- alwayscenter
+- attachbottom
+- awesomebar
+- bottomstack
+- deck
+- fixborders
+- noborderfloatingfix
+- pertag
+- resizecorners
+- scratchpads
+- swallowing is implemented with xdo, devour and aliases.
 
 <details>
 <summary><strong>Standard packages</strong></summary>
@@ -47,3 +58,4 @@ devour xidlehook
 
 ![1](https://u.cubeupload.com/earl_/desktop.png)
 </details>
+
