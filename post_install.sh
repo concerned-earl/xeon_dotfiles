@@ -1,7 +1,7 @@
 #!/bin/sh
 
 to_install() {
-  REPO=$(dirname $0)
+  REPO=$(cd $(dirname $0) && pwd)
   echo "enter username"
   read user
   H=/home/$user
@@ -17,12 +17,10 @@ to_install() {
     read to_std2
 
     echo -e "\ninstall aur helper (paru)? [y/n]"
+    echo "makepkg can't be run as root, after installation cd" 
+    echo -e "into $H/etc/paru and makepkg -si"
+    echo -e "aur packages are located in $H/etc/aur\n"
     read to_paru
-
-    if [ $to_paru = y ]; then
-      echo -e "\ninstall aur packages? [y/n]"
-      read to_aur
-    fi
 
     echo -e "\ninstall video driver? [y/n]"
     read to_video
@@ -112,9 +110,6 @@ install_paru() {
   echo -e "installing paru...\n"
   cd $H/etc
   git clone https://aur.archlinux.org/paru.git
-  cd paru
-  makepkg -si
-  cd $H
 }
 
 install_video() {
@@ -148,11 +143,6 @@ install_pkg() {
 
   if [ $to_paru = y ]; then
     install_paru     
-  fi
-
-  if [ $to_aur = y ]; then
-    echo -e "installing AUR packages...\n"
-    paru -S --noconfirm < $REPO/etc/aur
   fi
 
   gpasswd -a mpd $user

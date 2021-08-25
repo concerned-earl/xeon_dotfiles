@@ -21,7 +21,7 @@ alsa-plugins
 alsa-utils
 pavucontrol
 feh
-mpc
+mpd
 ncmpcpp
 ranger
 thunar
