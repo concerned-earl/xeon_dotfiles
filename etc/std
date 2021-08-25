@@ -11,7 +11,7 @@ xdg-user-dirs
 wpa_supplicant
 git
 tlp
-ttap-rdw
+tlp-rdw
 powertop
 htop
 maim
