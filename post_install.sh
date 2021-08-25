@@ -7,7 +7,7 @@ to_install() {
   H=/home/$user
   echo 
 
-  echo -e "\nmove files from to $H? [y/n]"
+  echo -e "\nmove files from the repository to $H? [y/n]"
   read to_move
 
   echo -e "\ninstall standard packages? [y/n]"
@@ -97,7 +97,7 @@ mk_files() {
 }
 
 mv_files() {
-  echo -e "moving files to $H\n"
+  echo -e "moving files from the repository to $H\n"
   mv -f $REPO/.config $H
   mv -f $REPO/.scripts $H
   mv -f $REPO/.Xresources $H
