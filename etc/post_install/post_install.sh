@@ -2,52 +2,53 @@
 
 to_install() {
   REPO=$(dirname $0)
-  echo -e "enter username\n"
+  echo "enter username"
   read user
   H=/home/$user
+  echo 
 
-  echo -e "move files from $REPO to $H? [y/n]\n"
+  echo -e "\nmove files from $REPO to $H? [y/n]"
   read to_move
 
-  echo -e "install standard packages? [y/n]\n"
+  echo -e "\ninstall standard packages? [y/n]"
   read to_std
 
   if [ $to_std = y ]; then
-    echo -e "install additional standard packages (e.g. obs, libreoffice)? [y/n]\n"
+    echo -e "\ninstall additional standard packages (e.g. obs, libreoffice)? [y/n]"
     read to_std2
   fi
 
-  echo -e "install aur helper (paru)? [y/n]\n"
+  echo -e "\ninstall aur helper (paru)? [y/n]"
   read to_paru
   
   if [ $to_paru = y ]; then
-    echo -e "install aur packages? [y/n]\n"
+    echo -e "\ninstall aur packages? [y/n]"
     read to_aur
   fi
 
-  echo -e "install video driver? [y/n]\n"
+  echo -e "\ninstall video driver? [y/n]"
   read to_video
 
   if [ $to_video = y ]; then
-    echo "choose the video driver [nvidia/intel]"
+    echo -e "\nchoose the video driver [nvidia/intel]"
     read video
-    echo -e "$video has been chosen\n"
+    echo "$video has been chosen"
 
     if [ $video = intel ]; then
-      echo -e "is the cpu ivy bridge or newer? [y/n]\n"
+      echo -e "\nis the cpu ivy bridge or newer? [y/n]"
       read intel_vulkan
     fi
   fi
 
-  echo -e "set shell to zsh? [y/n]\n"
+  echo -e "\nset shell to zsh? [y/n]"
   read to_zsh
 
   if [ $to_move = y ]; then
-    echo -e "compile software (e.g. dmenu, dwm)? [y/n]\n"
+    echo -e "\ncompile software (e.g. dmenu, dwm)? [y/n]"
     read to_make
   fi
 
-  echo -e "start services (e.g. ufw)? [y/n]\n"
+  echo -e "\nstart services (e.g. ufw)? [y/n]"
   read to_service
 }
 
@@ -81,27 +82,28 @@ mk_files() {
   mkdir -p $H/Pictures/screenshots/area
   mkdir $H/Pictures/screenshots/fullscreen
   mkdir $H/Pictures/screenshots/mpv
-  mkdir $H/Pictures/screenshots/mpv
   mkdir $H/Pictures/wallpapers
 
   mkdir $H/Music
-  mkdir -p $H/.config/mpd/playlists
-  mkdir $H/.config/mpd/lyrics
-  touch $H/.config/mpd/mpd.pid
-  touch $H/.config/mpd/mpdstate
-  touch $H/.config/mpd/mpd.log
-  touch $H/.config/mpd/mpd.db
-  gpasswd -a mpd $USER
-  chmod 710 $H/Music
+  if [ $to_std = y ]; then
+    mkdir -p $H/.config/mpd/playlists
+    mkdir $H/.config/mpd/lyrics
+    touch $H/.config/mpd/mpd.pid
+    touch $H/.config/mpd/mpdstate
+    touch $H/.config/mpd/mpd.log
+    touch $H/.config/mpd/mpd.db
+    gpasswd -a mpd $USER
+    chmod 710 $H/Music
+  fi
 }
 
 mv_files() {
-  echo -e "moving files from $REPO to $H\n"
-  mv -f $REPO/.config $H
-  mv -f $REPO/.scripts $H
-  mv -f $REPO/.Xresources $H
-  mv -f $REPO/.zprofile $H
-  mv -f $REPO/.xinitrc $H
+  echo -e "moving files from to $H\n"
+  mv -f $REPO/../../.config $H
+  mv -f $REPO/../../.scripts $H
+  mv -f $REPO/../../.Xresources $H
+  mv -f $REPO/../../.zprofile $H
+  mv -f $REPO/../../.xinitrc $H
 
   chmod +x $H/.scripts/*
 }
@@ -132,10 +134,10 @@ install_video() {
 install_pkg() {
   if [ $to_std = y ]; then
     echo -e "installing standard packages...\n"
-    pacman -S --noconfirm --needed < $REPO/etc/post_install/std_packages
+    pacman -S --noconfirm --needed < $REPO/std_packages
 
     if [ $to_std2 = y ]; then
-      pacman -S --noconfirm --needed < $REPO/etc/post_install/std_packages2
+      pacman -S --noconfirm --needed < $REPO/std_packages2
     fi
   fi
 
@@ -149,7 +151,7 @@ install_pkg() {
 
   if [ $to_aur = y ]; then
     echo -e "installing AUR packages...\n"
-    paru -S --noconfirm < $H/etc/post_install/aur_packages
+    paru -S --noconfirm < $REPO/aur_packages
   fi
 }
 
@@ -178,9 +180,9 @@ make_software() {
 }
 
 service() {
-  echo "starting services...\n"
+  echo -e "starting services...\n"
 
-  echo "starting ufw...\n"
+  echo -e "starting ufw...\n"
   systemctl enable ufw.service
 }
 
@@ -190,11 +192,11 @@ pre_install
 
 mk_files
 
+install_pkg
+
 if [ $to_move = y ]; then
   mv_files
 fi
-
-install_pkg
 
 if [ $to_zsh = y ]; then
   set_zsh
@@ -208,4 +210,4 @@ if [ $to_service = y ]; then
   service
 fi
 
-echo "the script has finished. reboot might be needed."
+echo -e "\nthe script has finished. reboot might be needed."
