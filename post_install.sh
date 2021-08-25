@@ -132,6 +132,7 @@ install_video() {
 
 install_pkg() {
   if [ $to_std = y ]; then
+    timedatectl set-ntp true
     echo -e "installing standard packages...\n"
     pacman -Syu --noconfirm --needed - < $REPO/etc/std
 
