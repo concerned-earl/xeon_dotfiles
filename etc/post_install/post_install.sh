@@ -1,6 +1,9 @@
 #!/bin/sh
 
 to_install() {
+  echo "move files from $REPO to $HOME? [y/n]"
+  read to_move
+
   echo "install standard packages? [y/n]"
   read to_std
 
@@ -36,11 +39,14 @@ to_install() {
   echo "set shell to zsh? [y/n]"
   read to_zsh
 
-  echo "additional configurations (e.g. scripts, configs)? [y/n]"
-  read to_additional
+  if [ $to_move = y ]
+  then
+    echo "additional configurations (e.g. scripts, configs)? [y/n]"
+    read to_additional
 
-  echo "compile software (e.g. dmenu, dwm)? [y/n]"
-  read to_make
+    echo "compile software (e.g. dmenu, dwm)? [y/n]"
+    read to_make
+  fi
 
   echo "start services (e.g. ufw)? [y/n]"
   read to_service
@@ -53,10 +59,18 @@ pre_install() {
   echo "-> arch installation"
   echo "-> run script as root user"
   echo "-> working internet connection"
-  echo "-> https://github.com/concerned-earl/xeon_dotfiles cloned into ~"
+  echo "-> https://github.com/concerned-earl/xeon_dotfiles cloned"
   echo ""
 
   to_install
+}
+
+mv_files() {
+  mv -f $REPO/.config $HOME
+  mv -f $REPO/.scripts $HOME
+  mv -f $REPO/.Xresources $HOME
+  mv -f $REPO/.zprofile $HOME
+  mv -f $REPO/.xinitrc $HOME
 }
 
 install_paru() {
@@ -160,9 +174,15 @@ service() {
 
 # ---------------------------------------
 
-cd $HOME
+REPO=$(dirname $0)
+mkdir $HOME/etc
 
 pre_install
+
+if [ $to_move = y ]
+then
+  mv_files
+fi
 
 install_pkg
 
