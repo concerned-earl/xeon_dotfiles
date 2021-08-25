@@ -56,16 +56,16 @@ to_install() {
 }
 
 pre_install() {
-    echo "follow the instructions carefully, the script is fairly basic.\n"
+  echo "follow the instructions carefully, the script is fairly basic.\n"
 
-  	echo "prerequisites:"
-	echo "-> arch installation"
-	echo "-> run script as root user"
-	echo "-> working internet connection"
-	echo "-> https://github.com/concerned-earl/xeon_dotfiles cloned into ~"
-    echo ""
+  echo "prerequisites:"
+  echo "-> arch installation"
+  echo "-> run script as root user"
+  echo "-> working internet connection"
+  echo "-> https://github.com/concerned-earl/xeon_dotfiles cloned into ~"
+  echo ""
 
-    to_install
+  to_install
 }
 
 install_paru() {
