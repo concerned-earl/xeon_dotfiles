@@ -16,40 +16,41 @@ to_install() {
   if [ $to_std = y ]; then
     echo -e "\ninstall additional standard packages (e.g. obs, libreoffice)? [y/n]"
     read to_std2
-  fi
 
-  echo -e "\ninstall aur helper (paru)? [y/n]"
-  read to_paru
-  
-  if [ $to_paru = y ]; then
-    echo -e "\ninstall aur packages? [y/n]"
-    read to_aur
-  fi
+    echo -e "\ninstall aur helper (paru)? [y/n]"
+    read to_paru
 
-  echo -e "\ninstall video driver? [y/n]"
-  read to_video
-
-  if [ $to_video = y ]; then
-    echo -e "\nchoose the video driver [nvidia/intel]"
-    read video
-    echo "$video has been chosen"
-
-    if [ $video = intel ]; then
-      echo -e "\nis the cpu ivy bridge or newer? [y/n]"
-      read intel_vulkan
+    if [ $to_paru = y ]; then
+      echo -e "\ninstall aur packages? [y/n]"
+      read to_aur
     fi
+
+    echo -e "\ninstall video driver? [y/n]"
+    read to_video
+
+    if [ $to_video = y ]; then
+      echo -e "\nchoose the video driver [nvidia/intel]"
+      read video
+      echo "$video has been chosen"
+
+      if [ $video = intel ]; then
+        echo -e "\nis the cpu ivy bridge or newer? [y/n]"
+        read intel_vulkan
+      fi
+    fi
+      
+    echo -e "\nset shell to zsh? [y/n]"
+    read to_zsh
+
+    if [ $to_move = y ]; then
+      echo -e "\ncompile software (e.g. dmenu, dwm)? [y/n]"
+      read to_make
+    fi
+
+    echo -e "\nstart services (e.g. ufw)? [y/n]"
+      read to_service
+      echo ""
   fi
-
-  echo -e "\nset shell to zsh? [y/n]"
-  read to_zsh
-
-  if [ $to_move = y ]; then
-    echo -e "\ncompile software (e.g. dmenu, dwm)? [y/n]"
-    read to_make
-  fi
-
-  echo -e "\nstart services (e.g. ufw)? [y/n]"
-  read to_service
 }
 
 
@@ -134,10 +135,10 @@ install_video() {
 install_pkg() {
   if [ $to_std = y ]; then
     echo -e "installing standard packages...\n"
-    pacman -S --noconfirm --needed < $REPO/std_packages
+    pacman -Syu --noconfirm --needed - < $REPO/std_packages
 
     if [ $to_std2 = y ]; then
-      pacman -S --noconfirm --needed < $REPO/std_packages2
+      pacman -S --noconfirm --needed - < $REPO/std_packages2
     fi
   fi
 
@@ -190,9 +191,9 @@ service() {
 
 pre_install
 
-mk_files
-
 install_pkg
+
+mk_files
 
 if [ $to_move = y ]; then
   mv_files
