@@ -205,5 +205,6 @@ if [ $to_service = y ]; then
   service
 fi
 
+mv -t $H/etc $REPO
 
 echo -e "\nthe script has finished. reboot might be needed."
