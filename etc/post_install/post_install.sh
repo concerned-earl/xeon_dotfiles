@@ -34,7 +34,7 @@ to_install() {
       echo "is the cpu ivy bridge or newer? [y/n]"
       read intel_vulkan
     fi
-  fi 
+  fi
 
   echo "set shell to zsh? [y/n]"
   read to_zsh
