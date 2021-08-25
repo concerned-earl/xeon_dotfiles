@@ -7,16 +7,14 @@ to_install() {
   echo "install standard packages? [y/n]"
   read to_std
 
-  if [ $to_std = y ]
-  then
+  if [ $to_std = y ]; then
     echo "install additional standard packages (e.g. obs, libreoffice)? [y/n]"
     read to_std2
 
   echo "install aur helper (paru)? [y/n]"
   read to_paru
   
-  if [ $to_paru = y ]
-  then
+  if [ $to_paru = y ]; then
     echo "install aur packages? [y/n]"
     read to_aur
   fi
@@ -24,13 +22,12 @@ to_install() {
   echo "install video driver? [y/n]"
   read to_video
 
-  if [ $to_video = y ]
+  if [ $to_video = y ]; then
     echo "choose the video driver [nvidia/intel]"
     read video
     echo "$video has been chosen"
 
-    if [ $video = intel ]
-    then
+    if [ $video = intel ]; then
       echo "is the cpu ivy bridge or newer? [y/n]"
       read intel_vulkan
     fi
@@ -39,8 +36,7 @@ to_install() {
   echo "set shell to zsh? [y/n]"
   read to_zsh
 
-  if [ $to_move = y ]
-  then
+  if [ $to_move = y ]; then
     echo "compile software (e.g. dmenu, dwm)? [y/n]"
     read to_make
   fi
@@ -114,43 +110,38 @@ install_paru() {
 }
 
 install_video() {
-  if [ $video = nvidia ]
-  then
+  if [ $video = nvidia ]; then
     echo "installing nvidia drivers
     pacman -S --noconfirm --needed nvidia nvidia-utils
-  elif [ $video = intel ]
-  then
+  elif [ $video = intel ]; then
     echo "installing intel drivers
     pacman -S --noconfirm --needed mesa
-    if [ $intel_vulkan = y ]
-      then
+    if [ $intel_vulkan = y ]; then
       echo "installing vulkan support"
       pacman -S --noconfirm --needed vulkan-intel
+    fi
+  fi
 }
 
 install_pkg() {
-  if [ $to_std = y ]
-  then
+  if [ $to_std = y ]; then
     echo "installing standard packages..."
     pacman -S --noconfirm --needed < $HOME/etc/post_install/std_packages
 
-    if [ $to_std2 = y ]
-    then
+    if [ $to_std2 = y ]; then
       pacman -S --noconfirm --needed < $HOME/etc/post_install/std_packages2
     fi
+  fi
 
-  if [ $to_video = y ]
-  then
+  if [ $to_video = y ]; then
     install_video     
   fi
 
-  if [ $to_paru = y ]
-  then
+  if [ $to_paru = y ]; then
     install_paru     
   fi
 
-  if [ $to_aur = y ]
-  then
+  if [ $to_aur = y ]; then
     echo "installing AUR packages..."
     paru -S --noconfirm < $HOME/etc/post_install/aur_packages
   fi
@@ -193,25 +184,21 @@ pre_install
 
 mk_files
 
-if [ $to_move = y ]
-then
+if [ $to_move = y ]; then
   mv_files
 fi
 
 install_pkg
 
-if [ $to_zsh = y ]
-then
+if [ $to_zsh = y ]; then
   set_zsh
 fi
 
-if [ $to_make = y ]
-then
+if [ $to_make = y ]; then
   make_software
 fi
 
-if [ $to_service = y ]
-then
+if [ $to_service = y ]; then
   service
 fi
 
