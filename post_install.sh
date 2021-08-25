@@ -70,6 +70,7 @@ mk_files() {
   echo -e "creating files/directories...\n"
 
   mkdir $H/etc
+  mkdir $H/.scripts
   mkdir $H/Downloads
 
   mkdir -p $H/Videos/anime
@@ -85,6 +86,7 @@ mk_files() {
   mkdir $H/Pictures/screenshots/mpv
   mkdir $H/Pictures/wallpapers
 
+
   mkdir $H/Music
   if [ $to_std = y ]; then
     mkdir -p $H/.config/mpd/playlists
@@ -98,8 +100,8 @@ mk_files() {
 
 mv_files() {
   echo -e "moving files from the repository to $H\n"
-  mv -f $REPO/.config $H
-  mv -f $REPO/.scripts $H
+  mv -f $REPO/.config/* $H/.config
+  mv -f $REPO/.scripts/* $H/.scripts
   mv -f $REPO/.Xresources $H
   mv -f $REPO/.zprofile $H
   mv -f $REPO/.xinitrc $H
@@ -196,7 +198,6 @@ pre_install
 mk_files
 
 install_pkg
-
 
 if [ $to_move = y ]; then
   mv_files
