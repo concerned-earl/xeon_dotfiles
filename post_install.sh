@@ -98,7 +98,7 @@ mk_files() {
 cp_files() {
   echo -e "copying files from the repository to $H\n"
   cp -r $REPO/.config/* $H/.config
-  cp -r $REPO/.scripts/ $H/.scripts
+  cp -r $REPO/.scripts/* $H/.scripts
   cp $REPO/.Xresources $H
   cp $REPO/.zprofile $H
   cp $REPO/.xinitrc $H
@@ -146,12 +146,12 @@ install_pkg() {
   fi
 
   gpasswd -a mpd $user
-  chmod 764 $H/Music
+  chmod 755 $H/Music
 }
 
 set_zsh() {
   echo -e "setting shell to zsh...\n"
-  chsh -s /usr/bin/zsh $user
+  chsh -s /bin/zsh $user
 }
 
 make_software() {

@@ -1,5 +1,6 @@
 archlinux-keyring
 base-devel
+xorg
 xorg-xinit
 xorg-xwininfo
 xorg-server
@@ -10,7 +11,7 @@ xdg-user-dirs
 wpa_supplicant
 git
 tlp
-tlp-rdw
+ttap-rdw
 powertop
 htop
 maim
