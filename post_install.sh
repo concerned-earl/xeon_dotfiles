@@ -98,7 +98,7 @@ mk_files() {
 cp_files() {
   echo -e "copying files from the repository to $H\n"
   cp -r $REPO/.config/* $H/.config
-  cp -r $REPO/.scripts/* $H/.scripts
+  cp -r $REPO/.scripts/ $H/.scripts
   cp $REPO/.Xresources $H
   cp $REPO/.zprofile $H
   cp $REPO/.xinitrc $H
@@ -151,14 +151,14 @@ install_pkg() {
 
 set_zsh() {
   echo -e "setting shell to zsh...\n"
-  chsh -s $(which zsh) $user
+  chsh -s /usr/bin/zsh $user
 }
 
 make_software() {
   echo -e "compiling software...\n"
 
   compile() {
-    echo -e "compiling $1\n"
+    echo -e "\ncompiling $1\n"
     cd $H/.config/$1
     make clean install
   }
