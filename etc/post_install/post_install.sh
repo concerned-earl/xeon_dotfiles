@@ -41,9 +41,6 @@ to_install() {
 
   if [ $to_move = y ]
   then
-    echo "additional configurations (e.g. scripts, configs)? [y/n]"
-    read to_additional
-
     echo "compile software (e.g. dmenu, dwm)? [y/n]"
     read to_make
   fi
@@ -53,7 +50,7 @@ to_install() {
 }
 
 pre_install() {
-  echo "follow the instructions carefully, the script is fairly basic.\n"
+  echo "follow the instructions carefully, the script is fairly basic."
 
   echo "prerequisites:"
   echo "-> arch installation"
@@ -65,12 +62,46 @@ pre_install() {
   to_install
 }
 
+mk_files() {
+  echo "creating files/directories"
+
+  mkdir $HOME/etc
+  mkdir $HOME/Downloads
+
+  mkdir -p $HOME/Videos/anime
+
+  mkdir -p $HOME/Documents/Books
+  mkdir  $HOME/Documents/Notes
+  mkdir  $HOME/Documents/School
+
+  mkdir $HOME/Games
+
+  mkdir -p $HOME/Pictures/screenshots/area
+  mkdir $HOME/Pictures/screenshots/fullscreen
+  mkdir $HOME/Pictures/screenshots/mpv
+  mkdir $HOME/Pictures/screenshots/mpv
+  mkdir $HOME/Pictures/wallpapers
+
+  mkdir $HOME/Music
+  mkdir -p $HOME/.config/mpd/playlists
+  mkdir $HOME/.config/mpd/lyrics
+  touch $HOME/.config/mpd/mpd.pid
+  touch $HOME/.config/mpd/mpdstate
+  touch $HOME/.config/mpd/mpd.log
+  touch $HOME/.config/mpd/mpd.db
+  gpasswd -a mpd $USER
+  chmod 710 $HOME/Music
+}
+
 mv_files() {
+  echo "moving files from $REPO to $HOME"
   mv -f $REPO/.config $HOME
   mv -f $REPO/.scripts $HOME
   mv -f $REPO/.Xresources $HOME
   mv -f $REPO/.zprofile $HOME
   mv -f $REPO/.xinitrc $HOME
+
+  chmod +x $HOME/.scripts/*
 }
 
 install_paru() {
@@ -130,24 +161,6 @@ set_zsh() {
   chsh -s $(which zsh) $USER
 }
 
-music() {
-  echo "configuring mpd..."
-  mkdir $HOME/Music
-  mkdir $HOME/.config/mpd/playlists
-  mkdir $HOME/.config/mpd/lyrics
-  touch $HOME/.config/mpd/mpd.pid
-  touch $HOME/.config/mpd/mpdstate
-  touch $HOME/.config/mpd/mpd.log
-  touch $HOME/.config/mpd/mpd.db
-  gpasswd -a mpd $USER
-  chmod 710 $HOME/Music
-}
-
-scripts() {
-  echo "configuring scripts..."
-  chmod +x $HOME/.scripts/*
-}
-
 make_software() {
   echo "compiling software..."
 
@@ -175,9 +188,10 @@ service() {
 # ---------------------------------------
 
 REPO=$(dirname $0)
-mkdir $HOME/etc
 
 pre_install
+
+mk_files
 
 if [ $to_move = y ]
 then
@@ -189,12 +203,6 @@ install_pkg
 if [ $to_zsh = y ]
 then
   set_zsh
-fi
-
-if [ $to_additional = y ]
-then
-  music
-  scripts
 fi
 
 if [ $to_make = y ]
