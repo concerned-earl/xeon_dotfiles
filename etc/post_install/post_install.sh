@@ -1,7 +1,12 @@
 #!/bin/sh
 
 to_install() {
-  echo "move files from $REPO to $HOME? [y/n]"
+  REPO=$(dirname $0)
+  echo "enter username"
+  read user
+  H=/home/$user
+
+  echo "move files from $REPO to $H? [y/n]"
   read to_move
 
   echo "install standard packages? [y/n]"
@@ -10,6 +15,7 @@ to_install() {
   if [ $to_std = y ]; then
     echo "install additional standard packages (e.g. obs, libreoffice)? [y/n]"
     read to_std2
+  fi
 
   echo "install aur helper (paru)? [y/n]"
   read to_paru
@@ -45,6 +51,7 @@ to_install() {
   read to_service
 }
 
+
 pre_install() {
   echo "follow the instructions carefully, the script is fairly basic."
 
@@ -61,52 +68,52 @@ pre_install() {
 mk_files() {
   echo "creating files/directories"
 
-  mkdir $HOME/etc
-  mkdir $HOME/Downloads
+  mkdir $H/etc
+  mkdir $H/Downloads
 
-  mkdir -p $HOME/Videos/anime
+  mkdir -p $H/Videos/anime
 
-  mkdir -p $HOME/Documents/Books
-  mkdir  $HOME/Documents/Notes
-  mkdir  $HOME/Documents/School
+  mkdir -p $H/Documents/Books
+  mkdir  $H/Documents/Notes
+  mkdir  $H/Documents/School
 
-  mkdir $HOME/Games
+  mkdir $H/Games
 
-  mkdir -p $HOME/Pictures/screenshots/area
-  mkdir $HOME/Pictures/screenshots/fullscreen
-  mkdir $HOME/Pictures/screenshots/mpv
-  mkdir $HOME/Pictures/screenshots/mpv
-  mkdir $HOME/Pictures/wallpapers
+  mkdir -p $H/Pictures/screenshots/area
+  mkdir $H/Pictures/screenshots/fullscreen
+  mkdir $H/Pictures/screenshots/mpv
+  mkdir $H/Pictures/screenshots/mpv
+  mkdir $H/Pictures/wallpapers
 
-  mkdir $HOME/Music
-  mkdir -p $HOME/.config/mpd/playlists
-  mkdir $HOME/.config/mpd/lyrics
-  touch $HOME/.config/mpd/mpd.pid
-  touch $HOME/.config/mpd/mpdstate
-  touch $HOME/.config/mpd/mpd.log
-  touch $HOME/.config/mpd/mpd.db
+  mkdir $H/Music
+  mkdir -p $H/.config/mpd/playlists
+  mkdir $H/.config/mpd/lyrics
+  touch $H/.config/mpd/mpd.pid
+  touch $H/.config/mpd/mpdstate
+  touch $H/.config/mpd/mpd.log
+  touch $H/.config/mpd/mpd.db
   gpasswd -a mpd $USER
-  chmod 710 $HOME/Music
+  chmod 710 $H/Music
 }
 
 mv_files() {
-  echo "moving files from $REPO to $HOME"
-  mv -f $REPO/.config $HOME
-  mv -f $REPO/.scripts $HOME
-  mv -f $REPO/.Xresources $HOME
-  mv -f $REPO/.zprofile $HOME
-  mv -f $REPO/.xinitrc $HOME
+  echo "moving files from $REPO to $H"
+  mv -f $REPO/.config $H
+  mv -f $REPO/.scripts $H
+  mv -f $REPO/.Xresources $H
+  mv -f $REPO/.zprofile $H
+  mv -f $REPO/.xinitrc $H
 
-  chmod +x $HOME/.scripts/*
+  chmod +x $H/.scripts/*
 }
 
 install_paru() {
   echo "installing paru..."
-  cd $HOME/etc
+  cd $H/etc
   git clone https://aur.archlinux.org/paru.git
   cd paru
   makepkg -si
-  cd $HOME
+  cd $H
 }
 
 install_video() {
@@ -126,10 +133,10 @@ install_video() {
 install_pkg() {
   if [ $to_std = y ]; then
     echo "installing standard packages..."
-    pacman -S --noconfirm --needed < $HOME/etc/post_install/std_packages
+    pacman -S --noconfirm --needed < $REPO/etc/post_install/std_packages
 
     if [ $to_std2 = y ]; then
-      pacman -S --noconfirm --needed < $HOME/etc/post_install/std_packages2
+      pacman -S --noconfirm --needed < $REPO/etc/post_install/std_packages2
     fi
   fi
 
@@ -143,7 +150,7 @@ install_pkg() {
 
   if [ $to_aur = y ]; then
     echo "installing AUR packages..."
-    paru -S --noconfirm < $HOME/etc/post_install/aur_packages
+    paru -S --noconfirm < $H/etc/post_install/aur_packages
   fi
 }
 
@@ -157,7 +164,7 @@ make_software() {
 
   compile() {
     echo "compiling $1"
-    cd $HOME/.config/$1
+    cd $H/.config/$1
     make clean install
   }
 
@@ -177,8 +184,6 @@ service() {
 }
 
 # ---------------------------------------
-
-REPO=$(dirname $0)
 
 pre_install
 
