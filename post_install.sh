@@ -146,7 +146,7 @@ install_pkg() {
   fi
 
   gpasswd -a mpd $user
-  chmod 710 $H/Music
+  chmod 764 $H/Music
 }
 
 set_zsh() {
