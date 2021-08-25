@@ -7,8 +7,8 @@ to_install() {
   H=/home/$user
   echo 
 
-  echo -e "\nmove files from the repository to $H? [y/n]"
-  read to_move
+  echo -e "\ncopy files from the repository to $H? [y/n]"
+  read to_copy
 
   echo -e "\ninstall standard packages? [y/n]"
   read to_std
@@ -98,13 +98,13 @@ mk_files() {
   fi
 }
 
-mv_files() {
-  echo -e "moving files from the repository to $H\n"
-  mv -f $REPO/.config/* $H/.config
-  mv -f $REPO/.scripts/* $H/.scripts
-  mv -f $REPO/.Xresources $H
-  mv -f $REPO/.zprofile $H
-  mv -f $REPO/.xinitrc $H
+cp_files() {
+  echo -e "copying files from the repository to $H\n"
+  cp -r $REPO/.config/* $H
+  cp -r $REPO/.scripts/* $H
+  cp $REPO/.Xresources $H
+  cp $REPO/.zprofile $H
+  cp $REPO/.xinitrc $H
 
   chmod +x $H/.scripts/*
 }
@@ -199,8 +199,8 @@ mk_files
 
 install_pkg
 
-if [ $to_move = y ]; then
-  mv_files
+if [ $to_copy = y ]; then
+  cp_files
 fi
 
 if [ $to_zsh = y ]; then
