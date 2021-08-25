@@ -7,7 +7,7 @@ to_install() {
   H=/home/$user
   echo 
 
-  echo -e "\nmove files from $REPO to $H? [y/n]"
+  echo -e "\nmove files from to $H? [y/n]"
   read to_move
 
   echo -e "\ninstall standard packages? [y/n]"
@@ -93,18 +93,16 @@ mk_files() {
     touch $H/.config/mpd/mpdstate
     touch $H/.config/mpd/mpd.log
     touch $H/.config/mpd/mpd.db
-    gpasswd -a mpd $USER
-    chmod 710 $H/Music
   fi
 }
 
 mv_files() {
-  echo -e "moving files from to $H\n"
-  mv -f $REPO/../../.config $H
-  mv -f $REPO/../../.scripts $H
-  mv -f $REPO/../../.Xresources $H
-  mv -f $REPO/../../.zprofile $H
-  mv -f $REPO/../../.xinitrc $H
+  echo -e "moving files to $H\n"
+  mv -f $REPO/.config $H
+  mv -f $REPO/.scripts $H
+  mv -f $REPO/.Xresources $H
+  mv -f $REPO/.zprofile $H
+  mv -f $REPO/.xinitrc $H
 
   chmod +x $H/.scripts/*
 }
@@ -135,10 +133,10 @@ install_video() {
 install_pkg() {
   if [ $to_std = y ]; then
     echo -e "installing standard packages...\n"
-    pacman -Syu --noconfirm --needed - < $REPO/std_packages
+    pacman -Syu --noconfirm --needed - < $REPO/etc/std
 
     if [ $to_std2 = y ]; then
-      pacman -S --noconfirm --needed - < $REPO/std_packages2
+      pacman -S --noconfirm --needed - < $REPO/etc/std2
     fi
   fi
 
@@ -152,8 +150,11 @@ install_pkg() {
 
   if [ $to_aur = y ]; then
     echo -e "installing AUR packages...\n"
-    paru -S --noconfirm < $REPO/aur_packages
+    paru -S --noconfirm < $REPO/etc/aur
   fi
+
+  gpasswd -a mpd $user
+  chmod 710 $H/Music
 }
 
 set_zsh() {
@@ -191,9 +192,10 @@ service() {
 
 pre_install
 
+mk_files
+
 install_pkg
 
-mk_files
 
 if [ $to_move = y ]; then
   mv_files
