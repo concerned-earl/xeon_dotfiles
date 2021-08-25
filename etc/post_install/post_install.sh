@@ -4,6 +4,11 @@ to_install() {
   echo "install standard packages? [y/n]"
   read to_std
 
+  if [ $to_std = y ]
+  then
+    echo "install additional standard packages (e.g. obs, libreoffice)? [y/n]"
+    read to_std2
+
   echo "install aur helper (paru)? [y/n]"
   read to_paru
   
@@ -17,13 +22,13 @@ to_install() {
   read to_video
 
   if [ $to_video = y ]
-    echo "choose the video driver (nvidia/intel)"
+    echo "choose the video driver [nvidia/intel]"
     read video
     echo "$video has been chosen"
 
     if [ $video = intel ]
     then
-      echo "is the cpu ivy bridge or newer (y/n)"
+      echo "is the cpu ivy bridge or newer? [y/n]"
       read intel_vulkan
     fi
   fi 
@@ -32,7 +37,7 @@ to_install() {
   read to_microcode
 
   if [ $to_microcode = y ]
-    echo "choose the cpu microcode (intel/amd)"
+    echo "choose the cpu microcode [intel/amd]"
     read microcode
     echo "$microcode has been chosen"
   fi
@@ -101,6 +106,11 @@ install_pkg() {
   echo "installing standard packages..."
   pacman -S --noconfirm --needed < $HOME/etc/post_install/std_packages
 
+  if [ $to_std2 = y ]
+  then
+    pacman -S --noconfirm --needed < $HOME/etc/post_install/std_packages2
+  fi
+
   if [ $to_video = y ]
   then
     install_video     
@@ -125,11 +135,12 @@ install_pkg() {
 
 set_zsh() {
   echo "setting shell to zsh..."
-  sudo chsh -s $(which zsh) $USER
+  chsh -s $(which zsh) $USER
 }
 
 music() {
   echo "configuring mpd..."
+  mkdir $HOME/Music
   mkdir $HOME/.config/mpd/playlists
   mkdir $HOME/.config/mpd/lyrics
   touch $HOME/.config/mpd/mpd.pid
@@ -167,6 +178,9 @@ service() {
 
   echo "starting networkmanager..."
   systemctl enable NetworkManager.service
+
+  echo "starting ufw..."
+  systemctl enable ufw.service
 }
 
 # ---------------------------------------
