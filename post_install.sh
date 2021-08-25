@@ -99,8 +99,8 @@ mk_files() {
 
 cp_files() {
   echo -e "copying files from the repository to $H\n"
-  cp -r $REPO/.config/* $H
-  cp -r $REPO/.scripts/* $H
+  cp -r $REPO/.config/* $H/.config
+  cp -r $REPO/.scripts/* $H/.scripts
   cp $REPO/.Xresources $H
   cp $REPO/.zprofile $H
   cp $REPO/.xinitrc $H
