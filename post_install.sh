@@ -19,7 +19,7 @@ to_install() {
     echo -e "\ninstall aur helper (paru)? [y/n]"
     echo "makepkg can't be run as root, therefore after installation" 
     echo -e "cd into $H/etc/paru and makepkg -si"
-    echo -e "aur packages are located in $REPO/etc/aur"
+    echo -e "aur packages will be in $H/etc/xeon_dotfiles/etc/aur"
     read to_paru
 
     echo -e "\ninstall video driver? [y/n]"
