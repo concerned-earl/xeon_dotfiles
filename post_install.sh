@@ -17,9 +17,9 @@ to_install() {
     read to_std2
 
     echo -e "\ninstall aur helper (paru)? [y/n]"
-    echo "makepkg can't be run as root, after installation cd" 
-    echo -e "into $H/etc/paru and makepkg -si"
-    echo -e "aur packages are located in $H/etc/aur\n"
+    echo "makepkg can't be run as root, therefore after installation" 
+    echo -e "cd into $H/etc/paru and makepkg -si"
+    echo -e "aur packages are located in $REPO/etc/aur"
     read to_paru
 
     echo -e "\ninstall video driver? [y/n]"
@@ -115,7 +115,7 @@ install_paru() {
 install_video() {
   if [ $video = nvidia ]; then
     echo -e "installing nvidia drivers...\n"
-    pacman -S --noconfirm --needed nvidia nvidia-utils
+    pacman -S --noconfirm --needed nvidia nvidia-utils nvidia-settings
   elif [ $video = intel ]; then
     echo -e "installing intel drivers...\n"
     pacman -S --noconfirm --needed mesa
@@ -158,7 +158,7 @@ make_software() {
   echo -e "compiling software...\n"
 
   compile() {
-    echo "compiling $1"
+    echo -e "compiling $1\n"
     cd $H/.config/$1
     make clean install
   }
