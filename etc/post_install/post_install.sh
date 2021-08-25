@@ -42,7 +42,7 @@ to_install() {
   echo "compile software (e.g. dmenu, dwm)? [y/n]"
   read to_make
 
-  echo "start services (e.g. networkmanager)? [y/n]"
+  echo "start services (e.g. ufw)? [y/n]"
   read to_service
 }
 
@@ -153,9 +153,6 @@ make_software() {
 
 service() {
   echo "starting services..."
-
-  echo "starting networkmanager..."
-  systemctl enable NetworkManager.service
 
   echo "starting ufw..."
   systemctl enable ufw.service
