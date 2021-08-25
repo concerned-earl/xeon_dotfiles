@@ -2,71 +2,70 @@
 
 to_install() {
   REPO=$(dirname $0)
-  echo "enter username"
+  echo -e "enter username\n"
   read user
   H=/home/$user
 
-  echo "move files from $REPO to $H? [y/n]"
+  echo -e "move files from $REPO to $H? [y/n]\n"
   read to_move
 
-  echo "install standard packages? [y/n]"
+  echo -e "install standard packages? [y/n]\n"
   read to_std
 
   if [ $to_std = y ]; then
-    echo "install additional standard packages (e.g. obs, libreoffice)? [y/n]"
+    echo -e "install additional standard packages (e.g. obs, libreoffice)? [y/n]\n"
     read to_std2
   fi
 
-  echo "install aur helper (paru)? [y/n]"
+  echo -e "install aur helper (paru)? [y/n]\n"
   read to_paru
   
   if [ $to_paru = y ]; then
-    echo "install aur packages? [y/n]"
+    echo -e "install aur packages? [y/n]\n"
     read to_aur
   fi
 
-  echo "install video driver? [y/n]"
+  echo -e "install video driver? [y/n]\n"
   read to_video
 
   if [ $to_video = y ]; then
     echo "choose the video driver [nvidia/intel]"
     read video
-    echo "$video has been chosen"
+    echo -e "$video has been chosen\n"
 
     if [ $video = intel ]; then
-      echo "is the cpu ivy bridge or newer? [y/n]"
+      echo -e "is the cpu ivy bridge or newer? [y/n]\n"
       read intel_vulkan
     fi
   fi
 
-  echo "set shell to zsh? [y/n]"
+  echo -e "set shell to zsh? [y/n]\n"
   read to_zsh
 
   if [ $to_move = y ]; then
-    echo "compile software (e.g. dmenu, dwm)? [y/n]"
+    echo -e "compile software (e.g. dmenu, dwm)? [y/n]\n"
     read to_make
   fi
 
-  echo "start services (e.g. ufw)? [y/n]"
+  echo -e "start services (e.g. ufw)? [y/n]\n"
   read to_service
 }
 
 
 pre_install() {
-  echo "follow the instructions carefully, the script is fairly basic."
+  echo -e "follow the instructions carefully, as the script is fairly basic.\n"
 
   echo "prerequisites:"
   echo "-> arch installation"
   echo "-> run script as root user"
   echo "-> working internet connection"
-  echo "-> https://github.com/concerned-earl/xeon_dotfiles cloned"
-  echo ""
+  echo -e "-> https://github.com/concerned-earl/xeon_dotfiles cloned\n"
 
   to_install
 }
 
 mk_files() {
-  echo "creating files/directories"
+  echo -e "creating files/directories...\n"
 
   mkdir $H/etc
   mkdir $H/Downloads
@@ -97,7 +96,7 @@ mk_files() {
 }
 
 mv_files() {
-  echo "moving files from $REPO to $H"
+  echo -e "moving files from $REPO to $H\n"
   mv -f $REPO/.config $H
   mv -f $REPO/.scripts $H
   mv -f $REPO/.Xresources $H
@@ -108,7 +107,7 @@ mv_files() {
 }
 
 install_paru() {
-  echo "installing paru..."
+  echo -e "installing paru...\n"
   cd $H/etc
   git clone https://aur.archlinux.org/paru.git
   cd paru
@@ -118,13 +117,13 @@ install_paru() {
 
 install_video() {
   if [ $video = nvidia ]; then
-    echo "installing nvidia drivers
+    echo -e "installing nvidia drivers...\n"
     pacman -S --noconfirm --needed nvidia nvidia-utils
   elif [ $video = intel ]; then
-    echo "installing intel drivers
+    echo -e "installing intel drivers...\n"
     pacman -S --noconfirm --needed mesa
     if [ $intel_vulkan = y ]; then
-      echo "installing vulkan support"
+      echo -e "installing vulkan support...\n"
       pacman -S --noconfirm --needed vulkan-intel
     fi
   fi
@@ -132,7 +131,7 @@ install_video() {
 
 install_pkg() {
   if [ $to_std = y ]; then
-    echo "installing standard packages..."
+    echo -e "installing standard packages...\n"
     pacman -S --noconfirm --needed < $REPO/etc/post_install/std_packages
 
     if [ $to_std2 = y ]; then
@@ -149,18 +148,18 @@ install_pkg() {
   fi
 
   if [ $to_aur = y ]; then
-    echo "installing AUR packages..."
+    echo -e "installing AUR packages...\n"
     paru -S --noconfirm < $H/etc/post_install/aur_packages
   fi
 }
 
 set_zsh() {
-  echo "setting shell to zsh..."
-  chsh -s $(which zsh) $USER
+  echo -e "setting shell to zsh...\n"
+  chsh -s $(which zsh) $user
 }
 
 make_software() {
-  echo "compiling software..."
+  echo -e "compiling software...\n"
 
   compile() {
     echo "compiling $1"
@@ -174,12 +173,14 @@ make_software() {
   compile slock
   compile st
   compile xmenu
+
+  echo ""
 }
 
 service() {
-  echo "starting services..."
+  echo "starting services...\n"
 
-  echo "starting ufw..."
+  echo "starting ufw...\n"
   systemctl enable ufw.service
 }
 
