@@ -33,15 +33,6 @@ to_install() {
     fi
   fi 
 
-  echo "install cpu microcode? [y/n]"
-  read to_microcode
-
-  if [ $to_microcode = y ]
-    echo "choose the cpu microcode [intel/amd]"
-    read microcode
-    echo "$microcode has been chosen"
-  fi
-
   echo "set shell to zsh? [y/n]"
   read to_zsh
 
@@ -92,16 +83,6 @@ install_video() {
       pacman -S --noconfirm --needed vulkan-intel
 }
 
-install_microcode() {
-  echo "installing $microcode microcode"
-  if [ $microcode = intel ]
-  then
-    pacman -S --noconfirm --needed intel-ucode
-  elif [ $microcode = amd ]
-  then
-    pacman -S --noconfirm --needed amd-ucode
-}
-
 install_pkg() {
   if [ $to_std = y ]
   then
@@ -116,11 +97,6 @@ install_pkg() {
   if [ $to_video = y ]
   then
     install_video     
-  fi
-
-  if [ $to_microcode = y ]
-  then
-    install_microcode     
   fi
 
   if [ $to_paru = y ]
