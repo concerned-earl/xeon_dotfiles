@@ -152,6 +152,7 @@ install_pkg() {
 set_zsh() {
   echo -e "setting shell to zsh...\n"
   chsh -s /bin/zsh $user
+  rm $H/.bash_history $H/.bash_logout $H/.bash_profile $H/.bashrc
 }
 
 make_software() {
@@ -203,5 +204,6 @@ fi
 if [ $to_service = y ]; then
   service
 fi
+
 
 echo -e "\nthe script has finished. reboot might be needed."
