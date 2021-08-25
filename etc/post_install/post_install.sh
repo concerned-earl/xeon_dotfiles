@@ -103,13 +103,15 @@ install_microcode() {
 }
 
 install_pkg() {
-  echo "installing standard packages..."
-  pacman -S --noconfirm --needed < $HOME/etc/post_install/std_packages
-
-  if [ $to_std2 = y ]
+  if [ $to_std = y ]
   then
-    pacman -S --noconfirm --needed < $HOME/etc/post_install/std_packages2
-  fi
+    echo "installing standard packages..."
+    pacman -S --noconfirm --needed < $HOME/etc/post_install/std_packages
+
+    if [ $to_std2 = y ]
+    then
+      pacman -S --noconfirm --needed < $HOME/etc/post_install/std_packages2
+    fi
 
   if [ $to_video = y ]
   then
@@ -189,10 +191,7 @@ cd $HOME
 
 pre_install
 
-if [ $to_std = y ]
-then
-  install_pkg
-fi
+install_pkg
 
 if [ $to_zsh = y ]
 then
