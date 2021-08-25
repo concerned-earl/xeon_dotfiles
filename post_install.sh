@@ -5,7 +5,6 @@ to_install() {
   echo "enter username"
   read user
   H=/home/$user
-  echo 
 
   echo -e "\ncopy files from the repository to $H? [y/n]"
   read to_copy
@@ -42,7 +41,7 @@ to_install() {
     echo -e "\nset shell to zsh? [y/n]"
     read to_zsh
 
-    if [ $to_move = y ]; then
+    if [ $to_copy = y ]; then
       echo -e "\ncompile software (e.g. dmenu, dwm)? [y/n]"
       read to_make
     fi
