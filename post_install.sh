@@ -9,44 +9,32 @@ to_install() {
   echo -e "\ncopy files from the repository to $H? [y/n]"
   read to_copy
 
-  echo -e "\ninstall standard packages? [y/n]"
-  read to_std
+  echo -e "\ninstall additional standard packages (e.g. obs, libreoffice)? [y/n]"
+  read to_std2
 
-  if [ $to_std = y ]; then
-    echo -e "\ninstall additional standard packages (e.g. obs, libreoffice)? [y/n]"
-    read to_std2
+  echo -e "\ninstall aur helper (paru)? [y/n]"
+  echo "makepkg can't be run as root, therefore after installation" 
+  echo -e "cd into $H/etc/paru and makepkg -si"
+  echo -e "aur packages will be in $H/etc/xeon_dotfiles/etc/aur"
+  read to_paru
 
-    echo -e "\ninstall aur helper (paru)? [y/n]"
-    echo "makepkg can't be run as root, therefore after installation" 
-    echo -e "cd into $H/etc/paru and makepkg -si"
-    echo -e "aur packages will be in $H/etc/xeon_dotfiles/etc/aur"
-    read to_paru
+  echo -e "\ninstall video driver? [y/n]"
+  read to_video
 
-    echo -e "\ninstall video driver? [y/n]"
-    read to_video
+  if [ $to_video = y ]; then
+    echo -e "\nchoose the video driver [nvidia/intel]"
+    read video
+    echo "$video has been chosen"
 
-    if [ $to_video = y ]; then
-      echo -e "\nchoose the video driver [nvidia/intel]"
-      read video
-      echo "$video has been chosen"
-
-      if [ $video = intel ]; then
-        echo -e "\nis the cpu ivy bridge or newer? [y/n]"
-        read intel_vulkan
-      fi
+    if [ $video = intel ]; then
+      echo -e "\nis the cpu ivy bridge or newer? [y/n]"
+      read intel_vulkan
     fi
+  fi
       
-    echo -e "\nset shell to zsh? [y/n]"
-    read to_zsh
-
-    if [ $to_copy = y ]; then
-      echo -e "\ncompile software (e.g. dmenu, dwm)? [y/n]"
-      read to_make
-    fi
-
-    echo -e "\nstart services (e.g. ufw)? [y/n]"
-      read to_service
-      echo ""
+  if [ $to_copy = y ]; then
+    echo -e "\ncompile software (e.g. dmenu, dwm)? [y/n]"
+    read to_make
   fi
 }
 
@@ -83,16 +71,13 @@ mk_files() {
   mkdir $H/Pictures/screenshots/mpv
   mkdir $H/Pictures/wallpapers
 
-
   mkdir $H/Music
-  if [ $to_std = y ]; then
-    mkdir -p $H/.config/mpd/playlists
-    mkdir $H/.config/mpd/lyrics
-    touch $H/.config/mpd/mpd.pid
-    touch $H/.config/mpd/mpdstate
-    touch $H/.config/mpd/mpd.log
-    touch $H/.config/mpd/mpd.db
-  fi
+  mkdir -p $H/.config/mpd/playlists
+  mkdir $H/.config/mpd/lyrics
+  touch $H/.config/mpd/mpd.pid
+  touch $H/.config/mpd/mpdstate
+  touch $H/.config/mpd/mpd.log
+  touch $H/.config/mpd/mpd.db
 }
 
 cp_files() {
@@ -127,14 +112,12 @@ install_video() {
 }
 
 install_pkg() {
-  if [ $to_std = y ]; then
-    timedatectl set-ntp true
-    echo -e "installing standard packages...\n"
-    pacman -Syu --noconfirm --needed - < $REPO/etc/std
+  timedatectl set-ntp true
+  echo -e "installing standard packages...\n"
+  pacman -Syu --noconfirm --needed - < $REPO/etc/std
 
-    if [ $to_std2 = y ]; then
-      pacman -S --noconfirm --needed - < $REPO/etc/std2
-    fi
+  if [ $to_std2 = y ]; then
+    pacman -S --noconfirm --needed - < $REPO/etc/std2
   fi
 
   if [ $to_video = y ]; then
@@ -184,26 +167,20 @@ service() {
 # ---------------------------------------
 
 pre_install
-
 mk_files
-
 install_pkg
 
 if [ $to_copy = y ]; then
   cp_files
 fi
 
-if [ $to_zsh = y ]; then
-  set_zsh
-fi
+set_zsh
 
 if [ $to_make = y ]; then
   make_software
 fi
 
-if [ $to_service = y ]; then
-  service
-fi
+service
 
 mv -t $H/etc $REPO
 

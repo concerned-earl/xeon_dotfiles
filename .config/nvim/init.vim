@@ -36,3 +36,9 @@ set shell:sh
 nnoremap <F1> <nop>
 nnoremap <BS> X
 map <S-k> <Nop>
+
+" bindings for the system clipboard 
+vmap <C-c> "+yi
+vmap <C-v> c<ESC>"+p
+imap <C-v> <C-r><C-o>+
+vmap <C-x> "+c
