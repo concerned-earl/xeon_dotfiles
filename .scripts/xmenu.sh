@@ -4,9 +4,9 @@ cat <<EOF | xmenu | sh &
 Accessories
 	Calculator 			qalculate-gtk
 	Night Light
-		5700K				redshift -P -O 5700 
-		5000K				redshift -P -O 5000
 		4500K				redshift -P -O 4500
+		5000K				redshift -P -O 5000
+		5700K				redshift -P -O 5700 
 		Reset				redshift -x
 	RSS 				$TERM -e $RSS
 	Screenshot

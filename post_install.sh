@@ -38,7 +38,6 @@ to_install() {
   fi
 }
 
-
 pre_install() {
   echo -e "follow the instructions carefully, as the script is fairly basic.\n"
 
@@ -112,7 +111,6 @@ install_video() {
 }
 
 install_pkg() {
-  timedatectl set-ntp true
   echo -e "installing standard packages...\n"
   pacman -Syu --noconfirm --needed - < $REPO/etc/std
 
@@ -158,10 +156,13 @@ make_software() {
 }
 
 service() {
-  echo -e "starting services...\n"
+  echo -e "enabling services...\n"
 
-  echo -e "starting ufw...\n"
+  echo "enabling ufw..."
   systemctl enable ufw.service
+ 
+  echo -e "enabling timesyncd"
+  timedatectl set-ntp true
 }
 
 # ---------------------------------------
