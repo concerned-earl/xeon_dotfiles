@@ -28,9 +28,10 @@
 - bottomstack
 - deck
 - fixborders
+- focusmaster-return
+- movestack
 - noborderfloatingfix
 - pertag
-- resizecorners
 - scratchpads
 - swallowing is implemented with xdo, devour and aliases.
 

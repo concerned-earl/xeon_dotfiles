@@ -85,6 +85,7 @@ static const Rule rules[] = {
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
+static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -111,6 +112,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[]        = { "dmenu_run", NULL };
 
+#include "movestack.c"
 static Key keys[] = {
     /* modifier             key        function        argument */
     { MODKEY,               XK_d,      spawn,          SHCMD("$HOME/.scripts/dmenu.sh") },
@@ -118,8 +120,10 @@ static Key keys[] = {
     { MODKEY,               XK_space,  zoom,           {0} },
     { MODKEY,               XK_j,      focusstack,     {.i = +1 } },
     { MODKEY,               XK_k,      focusstack,     {.i = -1 } },
-    { MODKEY,               XK_i,      incnmaster,     {.i = +1 } },
-    { MODKEY,               XK_o,      incnmaster,     {.i = -1 } },
+    { MODKEY|ShiftMask,     XK_j,      movestack,      {.i = +1 } },
+    { MODKEY|ShiftMask,     XK_k,      movestack,      {.i = -1 } },
+    // { MODKEY,               XK_i,      incnmaster,     {.i = +1 } },
+    // { MODKEY,               XK_o,      incnmaster,     {.i = -1 } },
     { MODKEY,               XK_h,      setmfact,       {.f = -0.02} },
     { MODKEY,               XK_l,      setmfact,       {.f = +0.02} },
     { MODKEY,               XK_Tab,    view,           {0} },
@@ -133,6 +137,7 @@ static Key keys[] = {
     { MODKEY|ShiftMask,     XK_space,  togglefloating, {0} },
     { MODKEY,               XK_f,      togglefullscr,  {0} },
     { MODKEY,               XK_0,      view,           {.ui = ~0 } },
+    { MODKEY,               XK_i,      focusmaster,    {0} },
     // { MODKEY,               XK_z,      setlayout,      {0} }, 
     // { MODKEY|ShiftMask,     XK_0,      tag,            {.ui = ~0 } },
     // { MODKEY,               XK_b,      togglebar,      {0} },
