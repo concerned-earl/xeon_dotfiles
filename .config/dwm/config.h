@@ -9,40 +9,16 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Terminus:size=11" };
 
-/* yellow */
-/* static const char col_bg[]          = "#000000";
-static const char col_fg[]          = "#c4aa83";
-static const char col_1[]           = "#ffffff";
-static const char col_2[]           = "#5e4e37";
-static const char *colors[][3]      = {
-    //               fg         bg          border
-    [SchemeNorm] = { col_1,     col_bg,     col_2 },
-    [SchemeSel]  = { col_bg,    col_fg,     col_fg },
-    [SchemeHid]  = { col_1,     col_2,      col_bg },
-}; */
-
-/* mountain */
-/* static const char col_bg[]          = "#262626";
-static const char col_fg[]          = "#8aac8b";
-static const char col_1[]           = "#f0f0f0";
-static const char col_2[]           = "#4c4c4c";
-static const char *colors[][3]      = {
-    //               fg         bg          border
-    [SchemeNorm] = { col_1,     col_bg,     col_2 },
-    [SchemeSel]  = { col_bg,    col_fg,     col_fg },
-    [SchemeHid]  = { col_1,     col_2,      col_bg },
-}; */
-
 /* monochrome */
-static const char col_bg[]          = "#262626";
+static const char col_bg[]          = "#000000";
 static const char col_fg[]          = "#ffffff";
-static const char col_1[]           = "#4c4c4c";
-static const char col_2[]           = "#b8bbc2";
+static const char col_1[]           = "#b8bbc2";
+static const char col_2[]           = "#262626";
 static const char *colors[][3]      = {
     //               fg         bg          border
-    [SchemeNorm] = { col_2,     col_bg,     col_1 },
+    [SchemeNorm] = { col_1,     col_bg,     col_bg },
     [SchemeSel]  = { col_fg,    col_bg,     col_fg },
-    [SchemeHid]  = { col_bg,    col_2,      col_bg },
+    [SchemeHid]  = { col_fg,    col_2,      col_2 },
 };
 
 /* scratchpad */
@@ -93,8 +69,8 @@ static const Layout layouts[] = {
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 	{ "TTT",      bstack },
-	// { "===",      bstackhoriz },
 	{ "[D]",      deck },
+	// { "===",      bstackhoriz },
 };
 
 /* key definitions */
@@ -122,8 +98,6 @@ static Key keys[] = {
     { MODKEY,               XK_k,      focusstack,     {.i = -1 } },
     { MODKEY|ShiftMask,     XK_j,      movestack,      {.i = +1 } },
     { MODKEY|ShiftMask,     XK_k,      movestack,      {.i = -1 } },
-    // { MODKEY,               XK_i,      incnmaster,     {.i = +1 } },
-    // { MODKEY,               XK_o,      incnmaster,     {.i = -1 } },
     { MODKEY,               XK_h,      setmfact,       {.f = -0.02} },
     { MODKEY,               XK_l,      setmfact,       {.f = +0.02} },
     { MODKEY,               XK_Tab,    view,           {0} },
@@ -132,36 +106,24 @@ static Key keys[] = {
     { MODKEY,               XK_r,      setlayout,      {.v = &layouts[1]} },
     { MODKEY,               XK_s,      setlayout,      {.v = &layouts[2]} },
     { MODKEY,               XK_e,      setlayout,      {.v = &layouts[3]} },
-    // { MODKEY,               XK_r,      setlayout,      {.v = &layouts[4]} },
     { MODKEY,               XK_w,      setlayout,      {.v = &layouts[4]} },
     { MODKEY|ShiftMask,     XK_space,  togglefloating, {0} },
     { MODKEY,               XK_f,      togglefullscr,  {0} },
     { MODKEY,               XK_0,      view,           {.ui = ~0 } },
     { MODKEY,               XK_i,      focusmaster,    {0} },
-    // { MODKEY,               XK_z,      setlayout,      {0} }, 
-    // { MODKEY|ShiftMask,     XK_0,      tag,            {.ui = ~0 } },
-    // { MODKEY,               XK_b,      togglebar,      {0} },
-    // { MODKEY,               XK_comma,  focusmon,       {.i = -1 } },
-    // { MODKEY,               XK_period, focusmon,       {.i = +1 } },
-    // { MODKEY|ShiftMask,     XK_comma,  tagmon,         {.i = -1 } },
-    // { MODKEY|ShiftMask,     XK_period, tagmon,         {.i = +1 } },
     TAGKEYS(                XK_1,                      0)
     TAGKEYS(                XK_2,                      1)
     TAGKEYS(                XK_3,                      2)
     TAGKEYS(                XK_4,                      3)
     TAGKEYS(                XK_5,                      4)
-    // TAGKEYS(                XK_6,                      5)
-    // TAGKEYS(                XK_7,                      6)
-    // TAGKEYS(                XK_8,                      7)
-    // TAGKEYS(                XK_9,                      8)
     { MODKEY|ShiftMask,     XK_Escape, quit,           {0} },
 
-    /* Scratchpad */
+    /* scratchpad */
     { MODKEY,               XK_z,      togglescratch,  {.ui = 0 } },
     { MODKEY,               XK_m,      togglescratch,  {.ui = 1 } },
     { MODKEY,               XK_n,      togglescratch,  {.ui = 2 } },
 
-    /* Audio/music */
+    /* audio/music */
     { 0,                    XF86XK_AudioLowerVolume,   spawn,      SHCMD("amixer -q set Master 1%-; kill -44 $(pidof dwmblocks)") },
     { 0,                    XF86XK_AudioRaiseVolume,   spawn,      SHCMD("amixer -q set Master 1%+; kill -44 $(pidof dwmblocks)") },
     { 0,                    XF86XK_AudioMute,          spawn,      SHCMD("amixer -q set Master toggle") },
@@ -171,18 +133,33 @@ static Key keys[] = {
     { 0,                    XF86XK_AudioPrev,          spawn,      SHCMD("mpc prev") },
     { 0,                    XF86XK_AudioNext,          spawn,      SHCMD("mpc next") },
 
-    /* Screenshot */
+    /* screenshot */
     { 0,                    XK_Print,  spawn,          SHCMD("$HOME/.scripts/clipboard_screenshot.sh") },
     { ShiftMask,            XK_Print,  spawn,          SHCMD("$HOME/.scripts/area_screenshot.sh") },
     { MODKEY|ShiftMask,     XK_Print,  spawn,          SHCMD("$HOME/.scripts/screenshot.sh") },
 
-    /* Brightness */
+    /* brightness */
     { 0,                    XF86XK_MonBrightnessUp,    spawn,      SHCMD("xbacklight -inc 5") },
     { 0,                    XF86XK_MonBrightnessDown,  spawn,      SHCMD("xbacklight -dec 5") },
 
-    /* Menu */
+    /* menu */
     { MODKEY,               XK_x,      spawn,          SHCMD("$HOME/.scripts/xmenu.sh") },
 
+    /* unused */
+    // { MODKEY,               XK_r,      setlayout,      {.v = &layouts[5]} },
+    // { MODKEY,               XK_i,      incnmaster,     {.i = +1 } },
+    // { MODKEY,               XK_o,      incnmaster,     {.i = -1 } },
+    // { MODKEY,               XK_z,      setlayout,      {0} }, 
+    // { MODKEY|ShiftMask,     XK_0,      tag,            {.ui = ~0 } },
+    // { MODKEY,               XK_b,      togglebar,      {0} },
+    // { MODKEY,               XK_comma,  focusmon,       {.i = -1 } },
+    // { MODKEY,               XK_period, focusmon,       {.i = +1 } },
+    // { MODKEY|ShiftMask,     XK_comma,  tagmon,         {.i = -1 } },
+    // { MODKEY|ShiftMask,     XK_period, tagmon,         {.i = +1 } },
+    // TAGKEYS(                XK_6,                      5)
+    // TAGKEYS(                XK_7,                      6)
+    // TAGKEYS(                XK_8,                      7)
+    // TAGKEYS(                XK_9,                      8)
 };
 
 /* button definitions */
@@ -193,7 +170,6 @@ static Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button1,        togglewin,      {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	// { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
@@ -201,4 +177,5 @@ static Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+	// { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 };
